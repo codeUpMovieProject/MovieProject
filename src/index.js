@@ -22,7 +22,8 @@ getMovies().then((movies) => {
     ul+=`</ul>`;
     $('.loading').hide();
     $('.container').addClass('movie-info');
-    $('.movie-info').append(ul);
+    $('.movie-list').append(ul);
+
 }).catch((error) => {
   alert('Oh no! Something went wrong.\nCheck the console for details.');
   console.log(error);

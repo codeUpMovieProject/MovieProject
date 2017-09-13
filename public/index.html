@@ -8,10 +8,25 @@
 <body>
 <div class=loading></div>
     <div class="container">
-
         <h1>Movie List</h1>
         <p>Rate your favorite movies.</p>
+
+        <form>
+            <ul class="new-item">
+                <li class="new-item"><input type="text" placeholder="Movie Name"></li>
+                <li class="new-item"><input type="radio" name="rating" value="1">1</li>
+                <li class="new-item"><input type="radio" name="rating" value="2">2</li>
+                <li class="new-item"><input type="radio" name="rating" value="3">3</li>
+                <li class="new-item"><input type="radio" name="rating" value="4">4</li>
+                <li class="new-item"><input type="radio" name="rating" value="5">5</li>
+
+            </ul>
+            <button type="submit">Add</button>
+        </form>
+        <div class="movie-list"></div>
+
     </div>
+
 
     <script src="/main.js"></script>
 </body>
