@@ -10,12 +10,19 @@ sayHello('World');
 const getMovies = require('./getMovies.js');
 const $=require('jQuery');
 
+let ul=`<ul>`;
+
 getMovies().then((movies) => {
   console.log('Here are all the movies:');
   movies.forEach(({title, rating, id}) => {
     console.log('');
-    $('.container').append(`id#${id} - ${title} - rating: ${rating}`);
+    ul+=`<li>id#${id} - ${title} - rating: ${rating}</li>`;
   });
+
+    ul+=`</ul>`;
+    $('.loading').hide();
+    $('.container').addClass('movie-info');
+    $('.movie-info').append(ul);
 }).catch((error) => {
   alert('Oh no! Something went wrong.\nCheck the console for details.');
   console.log(error);
