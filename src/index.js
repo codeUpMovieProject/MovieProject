@@ -8,12 +8,13 @@ sayHello('World');
  * require style imports
  */
 const getMovies = require('./getMovies.js');
-
+const $=require('jQuery');
 
 getMovies().then((movies) => {
   console.log('Here are all the movies:');
   movies.forEach(({title, rating, id}) => {
-    console.log(`id#${id} - ${title} - rating: ${rating}`);
+    console.log('');
+    $('.container').append(`id#${id} - ${title} - rating: ${rating}`);
   });
 }).catch((error) => {
   alert('Oh no! Something went wrong.\nCheck the console for details.');
