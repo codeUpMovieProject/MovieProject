@@ -50,6 +50,15 @@ $(".add").click(() => {
     $(".rating:checked").prop("checked", false);
 });
 
+$('#commit').click((getIndex)=> {
+    fetch(`/api/movies/${getIndex}`, {
+        method: "put",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response =>console.log(response.json()))
+});
+
 $(".movie-list").delegate(".edit", "click", (e) => {
     fetch('/api/movies', {
             method: "get",
@@ -80,9 +89,8 @@ $(".movie-list").delegate(".edit", "click", (e) => {
                 $('.rating').parent().next().next().next().next().children().first().prop('checked', true);
                 break;
         }
-        $('#submit').toggleClass('add').toggleClass('commit');
-        $(".add").html("Add");
-        $(".commit").html("Commit");
+        $('#submit').toggleClass('hide');
+        $("#commit").toggleClass("hide");
 
 
     }));
@@ -94,4 +102,5 @@ $(".movie-list").delegate(".edit", "click", (e) => {
     let getID = modifyMovie.substring(idStart + 1, idEnd);
     let getIndex = Number(getID);
     console.log(idStart, idEnd, getID, getIndex);
+    return getIndex;
 });

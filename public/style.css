@@ -24,3 +24,6 @@ html, body {
 .new-item,.rating{
     display: inline;
 }
+.hide{
+    display:none;
+}
