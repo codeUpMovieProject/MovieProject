@@ -7,9 +7,12 @@ html, body {
     top: 50%;
     transform: translateY(-100%);
     text-align: center;
+    width:40%;
+    margin-left:30%;
 }
-li{
+.movie-list>ul>li{
     list-style-type: none;
+    border: 1px solid black;
 }
 
 .loading{
@@ -20,4 +23,10 @@ li{
 }
 .new-item,.rating{
     display: inline;
+}
+.hide{
+    display:none;
+}
+.show{
+    display:inline;
 }
