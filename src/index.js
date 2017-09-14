@@ -57,7 +57,7 @@ $(".movie-list").delegate(".edit", "click" ,(e) => {
                 'Content-Type': 'application/json'
             }
         }
-    ).then(movie=>console.log(movie.json()
+    ).then(movie=>console.log(movie.json().find(item => item.id===getIndex)
     ));
 
 
@@ -68,5 +68,6 @@ $(".movie-list").delegate(".edit", "click" ,(e) => {
     let idStart=modifyMovie.indexOf("#");
     let idEnd=modifyMovie.indexOf(" ");
     let getID=modifyMovie.substring(idStart+1,idEnd);
-    console.log(idStart,idEnd,getID);
+    let getIndex=Number(getID);
+    console.log(idStart,idEnd,getID, getIndex);
 });
