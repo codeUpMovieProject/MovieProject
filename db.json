@@ -11,44 +11,24 @@
       "id": 2
     },
     {
-      "title": "Movie",
+      "title": "Casablanca",
       "rating": "4",
       "id": 3
     },
     {
-      "title": "hel",
-      "rating": "1",
+      "title": "Casablanca",
+      "rating": "5",
       "id": 4
     },
     {
-      "title": "weqt",
-      "rating": "2",
+      "title": "",
+      "rating": "4",
       "id": 5
     },
     {
-      "title": "rwe",
-      "rating": "3",
+      "title": "Casablanca",
+      "rating": "4",
       "id": 6
-    },
-    {
-      "title": "wrtw",
-      "rating": "4",
-      "id": 7
-    },
-    {
-      "title": "wrtwer",
-      "rating": "5",
-      "id": 8
-    },
-    {
-      "title": "wrtwr",
-      "rating": "2",
-      "id": 9
-    },
-    {
-      "title": "wrtwtr",
-      "rating": "4",
-      "id": 10
     }
   ]
 }

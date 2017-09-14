@@ -45,29 +45,53 @@ $(".add").click(() => {
             title: $("#title").val(),
             rating: $(".rating:checked").val()
         })
-    }).then((response) => response.json().then( (movie) => $("#movieList").append(`<li>id#${movie.id} - ${movie.title} - rating: ${movie.rating}<button class="edit" type="button">Edit</button><button class="delete" type="button">Delete</button></li>`)));
+    }).then((response) => response.json().then((movie) => $("#movieList").append(`<li>id#${movie.id} - ${movie.title} - rating: ${movie.rating}<button class="edit" type="button">Edit</button><button class="delete" type="button">Delete</button></li>`)));
     $("#title").val("");
-    $(".rating:checked").prop("checked",false);
+    $(".rating:checked").prop("checked", false);
 });
 
-$(".movie-list").delegate(".edit", "click" ,(e) => {
+$(".movie-list").delegate(".edit", "click", (e) => {
     fetch('/api/movies', {
             method: "get",
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-    ).then(movie=>console.log(movie.json().find(item => item.id===getIndex)
-    ));
+    ).then(movie => movie.json().then((movies) => {
+        let working = movies.find(item => item.id === getIndex);
+        console.log(working);
+        $('#title').val(working.title);
+        switch(working.rating){
+            case '1':
+                $('.rating').first().prop('checked', true);
+                console.log($('.rating').first());
+                break;
+            case '2':
+                $('.rating').parent().next().children().first().prop('checked', true);
+                console.log($('.rating').first().next());
+                break;
+            case '3':
+                $('.rating').parent().next().next().children().first().prop('checked', true);
+                break;
+            case '4':
+                $('.rating').parent().next().next().next().children().first().prop('checked', true);
+                break;
+            case '5':
+                $('.rating').parent().next().next().next().next().children().first().prop('checked', true);
+                break;
+        }
+        $('#submit').toggleClass('add').toggleClass('commit');
+        $(".add").html("Add");
+        $(".commit").html("Commit");
 
 
+    }));
 
-
-    let modifyMovie=$(e.target).parent().html();
+    let modifyMovie = $(e.target).parent().html();
     //returns a string.
-    let idStart=modifyMovie.indexOf("#");
-    let idEnd=modifyMovie.indexOf(" ");
-    let getID=modifyMovie.substring(idStart+1,idEnd);
-    let getIndex=Number(getID);
-    console.log(idStart,idEnd,getID, getIndex);
+    let idStart = modifyMovie.indexOf("#");
+    let idEnd = modifyMovie.indexOf(" ");
+    let getID = modifyMovie.substring(idStart + 1, idEnd);
+    let getIndex = Number(getID);
+    console.log(idStart, idEnd, getID, getIndex);
 });
