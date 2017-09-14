@@ -3,20 +3,21 @@
  */
 import sayHello from './hello';
 
-sayHello('World');
+// sayHello('World');
 
 /**
  * require style imports
  */
 const getMovies = require('./getMovies.js');
 const $ = require('jQuery');
+let movieIdEdit=0;
 
 
-let populateList = getMovies().then((movies) => {
-    console.log('Here are all the movies:');
+getMovies().then((movies) => {
     let movieString = movieLoop(movies);
 
     $('.loading').hide();
+    $('.container').removeClass("hide");
     $('.container').addClass('movie-info');
     $('.movie-list').append(movieString);
 
@@ -28,8 +29,8 @@ let populateList = getMovies().then((movies) => {
 let movieLoop = (movies) => {
     let ul = `<ul id="movieList">`;
     movies.forEach(({title, rating, id}) => {
-        console.log('');
-        ul += `<li>id#${id} - ${title} - rating: ${rating}<button class="edit" type="button">Edit</button><button class="delete" type="button">Delete</button></li>`;
+
+        ul += `<li id="movie${id}">id#${id} - ${title} - rating: ${rating}<button class="edit" type="button">Edit</button><button class="delete" type="button">Delete</button></li>`;
     });
     ul += `</ul>`;
     return ul;
@@ -45,18 +46,32 @@ $(".add").click(() => {
             title: $("#title").val(),
             rating: $(".rating:checked").val()
         })
-    }).then((response) => response.json().then((movie) => $("#movieList").append(`<li>id#${movie.id} - ${movie.title} - rating: ${movie.rating}<button class="edit" type="button">Edit</button><button class="delete" type="button">Delete</button></li>`)));
+    }).then((response) => response.json().then((movie) => $("#movieList").append(`<li id="movie${movie.id}">id#${movie.id} - ${movie.title} - rating: ${movie.rating}<button class="edit" type="button">Edit</button><button class="delete" type="button">Delete</button></li>`)));
     $("#title").val("");
     $(".rating:checked").prop("checked", false);
 });
 
-$('#commit').click((getIndex)=> {
-    fetch(`/api/movies/${getIndex}`, {
+$('#commit').click(()=> {
+
+    fetch(`/api/movies/${movieIdEdit}`, {
         method: "put",
         headers: {
             'Content-Type': 'application/json'
-        }
-    }).then(response =>console.log(response.json()))
+        },
+        body:JSON.stringify({
+            title: $("#title").val(),
+            rating: $(".rating:checked").val()
+        })
+
+    }).then(response =>response.json())
+    .then(movie => {
+        $("ul").find(`#movie${movie.id}`).html(`id#${movie.id} - ${movie.title} - rating: ${movie.rating}<button class="edit" type="button">Edit</button><button class="delete" type="button">Delete</button>`)
+    });
+    $("#title").val("");
+    $(".rating:checked").prop("checked", false);
+    $('#submit').toggleClass('hide');
+    $("#commit").toggleClass("hide");
+
 });
 
 $(".movie-list").delegate(".edit", "click", (e) => {
@@ -68,16 +83,15 @@ $(".movie-list").delegate(".edit", "click", (e) => {
         }
     ).then(movie => movie.json().then((movies) => {
         let working = movies.find(item => item.id === getIndex);
-        console.log(working);
         $('#title').val(working.title);
         switch(working.rating){
             case '1':
                 $('.rating').first().prop('checked', true);
-                console.log($('.rating').first());
+                // console.log($('.rating').first());
                 break;
             case '2':
                 $('.rating').parent().next().children().first().prop('checked', true);
-                console.log($('.rating').first().next());
+                // console.log($('.rating').first().next());
                 break;
             case '3':
                 $('.rating').parent().next().next().children().first().prop('checked', true);
@@ -100,7 +114,8 @@ $(".movie-list").delegate(".edit", "click", (e) => {
     let idStart = modifyMovie.indexOf("#");
     let idEnd = modifyMovie.indexOf(" ");
     let getID = modifyMovie.substring(idStart + 1, idEnd);
-    let getIndex = Number(getID);
-    console.log(idStart, idEnd, getID, getIndex);
-    return getIndex;
+    let getIndex = parseInt(getID);
+    movieIdEdit=getIndex;
+    // console.log(idStart, idEnd, getID, getIndex);
+    // return getIndex;
 });
