@@ -1,34 +1,29 @@
 {
   "movies": [
     {
-      "title": "Casablanca",
+      "title": "Star Wars: A New Hope",
       "rating": "5",
       "id": 1
     },
     {
-      "title": "Star Wars: A New Hope",
+      "title": "Transformers",
       "rating": "2",
       "id": 2
     },
     {
-      "title": "Lord of the Rings: Fellowship of the Ring",
-      "rating": "3",
+      "title": "The Hand of Manos",
+      "rating": "1",
       "id": 3
     },
     {
-      "title": "Lord of the Rings: Two Towers",
+      "title": "Indiana Jones and the Raiders of the Lost Arc",
       "rating": "5",
       "id": 4
     },
     {
-      "title": "Hand of Manos",
-      "rating": "1",
-      "id": 6
-    },
-    {
-      "title": "Hand of Manos",
-      "rating": "1",
-      "id": 7
+      "title": "Source Code",
+      "rating": "4",
+      "id": 5
     }
   ]
 }

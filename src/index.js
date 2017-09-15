@@ -125,7 +125,7 @@ $(".movie-list").delegate(".edit", "click", (e) => {
     let idEnd = deleteMovie.indexOf(" ");
     let getID = deleteMovie.substring(idStart + 1, idEnd);
     let deleteIndex = parseInt(getID);
-
+    $(e.target).parent().remove();
     fetch(`/api/movies/${deleteIndex}`, {
         method: 'delete',
         headers: {
@@ -133,6 +133,7 @@ $(".movie-list").delegate(".edit", "click", (e) => {
         }
     }).then(response =>response.json()).then(movie => {
        console.log('delete function works.');
+
 
     });
 });
