@@ -11,19 +11,29 @@
       "id": 2
     },
     {
-      "title": "The Hand of Manos",
-      "rating": "1",
-      "id": 3
-    },
-    {
       "title": "Indiana Jones and the Raiders of the Lost Arc",
-      "rating": "5",
+      "rating": "4",
       "id": 4
     },
     {
       "title": "Source Code",
       "rating": "4",
       "id": 5
+    },
+    {
+      "title": "Black Swan",
+      "rating": "5",
+      "id": 6
+    },
+    {
+      "title": "Yes Man",
+      "rating": "5",
+      "id": 7
+    },
+    {
+      "title": "Fast Five",
+      "rating": "5",
+      "id": 8
     }
   ]
 }
