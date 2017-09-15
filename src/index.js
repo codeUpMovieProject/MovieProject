@@ -118,4 +118,21 @@ $(".movie-list").delegate(".edit", "click", (e) => {
     movieIdEdit=getIndex;
     // console.log(idStart, idEnd, getID, getIndex);
     // return getIndex;
+}).delegate(".delete", "click", (e) => {
+    let deleteMovie = $(e.target).parent().html();
+    //returns a string.
+    let idStart = deleteMovie.indexOf("#");
+    let idEnd = deleteMovie.indexOf(" ");
+    let getID = deleteMovie.substring(idStart + 1, idEnd);
+    let deleteIndex = parseInt(getID);
+
+    fetch(`/api/movies/${deleteIndex}`, {
+        method: 'delete',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response =>response.json()).then(movie => {
+       console.log('delete function works.');
+
+    });
 });
