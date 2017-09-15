@@ -12,6 +12,7 @@ const getMovies = require('./getMovies.js');
 const $ = require('jQuery');
 let movieIdEdit=0;
 
+//Functions
 
 getMovies().then((movies) => {
     let movieString = movieLoop(movies);
@@ -36,6 +37,9 @@ let movieLoop = (movies) => {
     return ul;
 };
 
+//Click Events Requests
+
+//Post Request
 $(".add").click(() => {
     fetch('/api/movies', {
         method: "post",
@@ -51,29 +55,7 @@ $(".add").click(() => {
     $(".rating:checked").prop("checked", false);
 });
 
-$('#commit').click(()=> {
-
-    fetch(`/api/movies/${movieIdEdit}`, {
-        method: "put",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body:JSON.stringify({
-            title: $("#title").val(),
-            rating: $(".rating:checked").val()
-        })
-
-    }).then(response =>response.json())
-    .then(movie => {
-        $("ul").find(`#movie${movie.id}`).html(`id#${movie.id} - ${movie.title} - rating: ${movie.rating}<button class="edit" type="button">Edit</button><button class="delete" type="button">Delete</button>`)
-    });
-    $("#title").val("");
-    $(".rating:checked").prop("checked", false);
-    $('#submit').toggleClass('hide');
-    $("#commit").toggleClass("hide");
-
-});
-
+//Get and Delete Requests
 $(".movie-list").delegate(".edit", "click", (e) => {
     fetch('/api/movies', {
             method: "get",
@@ -125,6 +107,8 @@ $(".movie-list").delegate(".edit", "click", (e) => {
     let idEnd = deleteMovie.indexOf(" ");
     let getID = deleteMovie.substring(idStart + 1, idEnd);
     let deleteIndex = parseInt(getID);
+
+    //Delete Request that will remove a line from the data base and from the list.
     $(e.target).parent().remove();
     fetch(`/api/movies/${deleteIndex}`, {
         method: 'delete',
@@ -132,8 +116,37 @@ $(".movie-list").delegate(".edit", "click", (e) => {
             'Content-Type': 'application/json'
         }
     }).then(response =>response.json()).then(movie => {
-       console.log('delete function works.');
+        console.log('delete function works.');
 
 
     });
 });
+
+//Put Request
+$('#commit').click(()=> {
+
+    fetch(`/api/movies/${movieIdEdit}`, {
+        method: "put",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({
+            title: $("#title").val(),
+            rating: $(".rating:checked").val()
+        })
+
+    }).then(response =>response.json())
+        .then(movie => {
+            $("ul").find(`#movie${movie.id}`).html(`id#${movie.id} - ${movie.title} - rating: ${movie.rating}<button class="edit" type="button">Edit</button><button class="delete" type="button">Delete</button>`)
+        });
+    $("#title").val("");
+    $(".rating:checked").prop("checked", false);
+    $('#submit').toggleClass('hide');
+    $("#commit").toggleClass("hide");
+
+});
+
+
+
+
+
