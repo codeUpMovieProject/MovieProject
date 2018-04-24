@@ -1,0 +1,1 @@
+The command to start it up correctly is npm run dev
